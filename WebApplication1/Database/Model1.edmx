@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="studdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="admissiontbl">
+          <Key>
+            <PropertyRef Name="Rollno" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rollno" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Father" Type="nvarchar" MaxLength="50" />
+          <Property Name="Dod" Type="date" />
+          <Property Name="Contactno" Type="nvarchar" MaxLength="50" />
+          <Property Name="Session_year" Type="nvarchar" MaxLength="50" />
+          <Property Name="Course" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fee_rec" Type="int" />
+          <Property Name="Doa" Type="date" />
+        </EntityType>
+        <EntityType Name="annualtbl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rollno" Type="int" />
+          <Property Name="Feetype" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fees" Type="int" />
+          <Property Name="Latefee" Type="int" />
+          <Property Name="Feerec" Type="int" />
+          <Property Name="Dor" Type="date" />
+        </EntityType>
+        <EntityType Name="coursetbl">
+          <Key>
+            <PropertyRef Name="Course" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Course" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Admfee" Type="nvarchar" MaxLength="50" />
+          <Property Name="Anualfee" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="finetbl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rollno" Type="int" />
+          <Property Name="course" Type="nvarchar" MaxLength="50" />
+          <Property Name="Lastdate" Type="date" />
+          <Property Name="Fine" Type="int" />
+        </EntityType>
+        <Association Name="FK__admission__Cours__173876EA">
+          <End Role="coursetbl" Type="Self.coursetbl" Multiplicity="0..1" />
+          <End Role="admissiontbl" Type="Self.admissiontbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="coursetbl">
+              <PropertyRef Name="Course" />
+            </Principal>
+            <Dependent Role="admissiontbl">
+              <PropertyRef Name="Course" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__annualtbl__Rolln__1CF15040">
+          <End Role="admissiontbl" Type="Self.admissiontbl" Multiplicity="0..1" />
+          <End Role="annualtbl" Type="Self.annualtbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admissiontbl">
+              <PropertyRef Name="Rollno" />
+            </Principal>
+            <Dependent Role="annualtbl">
+              <PropertyRef Name="Rollno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__finetbl__course__1BFD2C07">
+          <End Role="coursetbl" Type="Self.coursetbl" Multiplicity="0..1" />
+          <End Role="finetbl" Type="Self.finetbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="coursetbl">
+              <PropertyRef Name="Course" />
+            </Principal>
+            <Dependent Role="finetbl">
+              <PropertyRef Name="course" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="studdbModelStoreContainer">
+          <EntitySet Name="admissiontbl" EntityType="Self.admissiontbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="annualtbl" EntityType="Self.annualtbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="coursetbl" EntityType="Self.coursetbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="finetbl" EntityType="Self.finetbl" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__admission__Cours__173876EA" Association="Self.FK__admission__Cours__173876EA">
+            <End Role="coursetbl" EntitySet="coursetbl" />
+            <End Role="admissiontbl" EntitySet="admissiontbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__annualtbl__Rolln__1CF15040" Association="Self.FK__annualtbl__Rolln__1CF15040">
+            <End Role="admissiontbl" EntitySet="admissiontbl" />
+            <End Role="annualtbl" EntitySet="annualtbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__finetbl__course__1BFD2C07" Association="Self.FK__finetbl__course__1BFD2C07">
+            <End Role="coursetbl" EntitySet="coursetbl" />
+            <End Role="finetbl" EntitySet="finetbl" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="studdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="admissiontbl">
+          <Key>
+            <PropertyRef Name="Rollno" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rollno" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Father" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Dod" Type="DateTime" Precision="0" />
+          <Property Name="Contactno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Session_year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Course" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fee_rec" Type="Int32" />
+          <Property Name="Doa" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="coursetbl" Relationship="Self.FK__admission__Cours__173876EA" FromRole="admissiontbl" ToRole="coursetbl" />
+          <NavigationProperty Name="annualtbls" Relationship="Self.FK__annualtbl__Rolln__1CF15040" FromRole="admissiontbl" ToRole="annualtbl" />
+        </EntityType>
+        <EntityType Name="annualtbl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rollno" Type="Int32" />
+          <Property Name="Feetype" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fees" Type="Int32" />
+          <Property Name="Latefee" Type="Int32" />
+          <Property Name="Feerec" Type="Int32" />
+          <Property Name="Dor" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="admissiontbl" Relationship="Self.FK__annualtbl__Rolln__1CF15040" FromRole="annualtbl" ToRole="admissiontbl" />
+        </EntityType>
+        <EntityType Name="coursetbl">
+          <Key>
+            <PropertyRef Name="Course" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Course" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Admfee" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Anualfee" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="admissiontbls" Relationship="Self.FK__admission__Cours__173876EA" FromRole="coursetbl" ToRole="admissiontbl" />
+          <NavigationProperty Name="finetbls" Relationship="Self.FK__finetbl__course__1BFD2C07" FromRole="coursetbl" ToRole="finetbl" />
+        </EntityType>
+        <EntityType Name="finetbl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rollno" Type="Int32" />
+          <Property Name="course" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Lastdate" Type="DateTime" Precision="0" />
+          <Property Name="Fine" Type="Int32" />
+          <NavigationProperty Name="coursetbl" Relationship="Self.FK__finetbl__course__1BFD2C07" FromRole="finetbl" ToRole="coursetbl" />
+        </EntityType>
+        <Association Name="FK__admission__Cours__173876EA">
+          <End Role="coursetbl" Type="Self.coursetbl" Multiplicity="0..1" />
+          <End Role="admissiontbl" Type="Self.admissiontbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="coursetbl">
+              <PropertyRef Name="Course" />
+            </Principal>
+            <Dependent Role="admissiontbl">
+              <PropertyRef Name="Course" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__annualtbl__Rolln__1CF15040">
+          <End Role="admissiontbl" Type="Self.admissiontbl" Multiplicity="0..1" />
+          <End Role="annualtbl" Type="Self.annualtbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admissiontbl">
+              <PropertyRef Name="Rollno" />
+            </Principal>
+            <Dependent Role="annualtbl">
+              <PropertyRef Name="Rollno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__finetbl__course__1BFD2C07">
+          <End Role="coursetbl" Type="Self.coursetbl" Multiplicity="0..1" />
+          <End Role="finetbl" Type="Self.finetbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="coursetbl">
+              <PropertyRef Name="Course" />
+            </Principal>
+            <Dependent Role="finetbl">
+              <PropertyRef Name="course" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="studdbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="admissiontbls" EntityType="Self.admissiontbl" />
+          <EntitySet Name="annualtbls" EntityType="Self.annualtbl" />
+          <EntitySet Name="coursetbls" EntityType="Self.coursetbl" />
+          <EntitySet Name="finetbls" EntityType="Self.finetbl" />
+          <AssociationSet Name="FK__admission__Cours__173876EA" Association="Self.FK__admission__Cours__173876EA">
+            <End Role="coursetbl" EntitySet="coursetbls" />
+            <End Role="admissiontbl" EntitySet="admissiontbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK__annualtbl__Rolln__1CF15040" Association="Self.FK__annualtbl__Rolln__1CF15040">
+            <End Role="admissiontbl" EntitySet="admissiontbls" />
+            <End Role="annualtbl" EntitySet="annualtbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK__finetbl__course__1BFD2C07" Association="Self.FK__finetbl__course__1BFD2C07">
+            <End Role="coursetbl" EntitySet="coursetbls" />
+            <End Role="finetbl" EntitySet="finetbls" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="studdbModelStoreContainer" CdmEntityContainer="studdbEntities">
+          <EntitySetMapping Name="admissiontbls">
+            <EntityTypeMapping TypeName="studdbModel.admissiontbl">
+              <MappingFragment StoreEntitySet="admissiontbl">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Rollno" ColumnName="Rollno" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Father" ColumnName="Father" />
+                <ScalarProperty Name="Dod" ColumnName="Dod" />
+                <ScalarProperty Name="Contactno" ColumnName="Contactno" />
+                <ScalarProperty Name="Session_year" ColumnName="Session_year" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="Fee_rec" ColumnName="Fee_rec" />
+                <ScalarProperty Name="Doa" ColumnName="Doa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="annualtbls">
+            <EntityTypeMapping TypeName="studdbModel.annualtbl">
+              <MappingFragment StoreEntitySet="annualtbl">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Rollno" ColumnName="Rollno" />
+                <ScalarProperty Name="Feetype" ColumnName="Feetype" />
+                <ScalarProperty Name="Fees" ColumnName="Fees" />
+                <ScalarProperty Name="Latefee" ColumnName="Latefee" />
+                <ScalarProperty Name="Feerec" ColumnName="Feerec" />
+                <ScalarProperty Name="Dor" ColumnName="Dor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="coursetbls">
+            <EntityTypeMapping TypeName="studdbModel.coursetbl">
+              <MappingFragment StoreEntitySet="coursetbl">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="Admfee" ColumnName="Admfee" />
+                <ScalarProperty Name="Anualfee" ColumnName="Anualfee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="finetbls">
+            <EntityTypeMapping TypeName="studdbModel.finetbl">
+              <MappingFragment StoreEntitySet="finetbl">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Rollno" ColumnName="Rollno" />
+                <ScalarProperty Name="course" ColumnName="course" />
+                <ScalarProperty Name="Lastdate" ColumnName="Lastdate" />
+                <ScalarProperty Name="Fine" ColumnName="Fine" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
